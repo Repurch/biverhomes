@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Biver Royalty Homes</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+  
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  
+  <style>
+    /* Auth Section Styles */
+    .auth-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .auth-container {
+      max-width: 450px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .auth-tabs {
+      display: flex;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #e9ecef;
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 15px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      color: #6c757d;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .auth-tab.active {
+      color: #002845;
+      border-bottom: 3px solid #002845;
+    }
+
+    .auth-form {
+      display: none;
+    }
+
+    .auth-form.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #002845;
+    }
+
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .forgot-password {
+      color: #002845;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+
+    .auth-btn {
+      width: 100%;
+      padding: 12px;
+      background: #002845;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .auth-btn:hover {
+      background: #001a33;
+    }
+
+    .auth-divider {
+      text-align: center;
+      margin: 25px 0;
+      position: relative;
+    }
+
+    .auth-divider span {
+      background: white;
+      padding: 0 15px;
+      color: #6c757d;
+      font-size: 14px;
+    }
+
+    .auth-divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #e9ecef;
+      z-index: -1;
+    }
+
+    .google-auth-container {
+      text-align: center;
+    }
+
+    .error-message {
+      display: none;
+      background: #f8d7da;
+      color: #721c24;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      border: 1px solid #f5c6cb;
+    }
+
+    .user-info {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .user-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+    }
+
+    .continue-btn {
+      margin-top: 20px;
+      background: #28a745;
+    }
+
+    .continue-btn:hover {
+      background: #218838;
+    }
+
+    /* Make sure Google button is visible */
+    .g_id_signin {
+      margin: 0 auto;
+      display: inline-block !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .auth-container {
+        margin: 20px;
+        padding: 30px 20px;
+      }
+      
+      .form-options {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" data-header>
+    <!-- Your existing header code remains the same -->
+    <div class="overlay" data-overlay></div>
+    <div class="header-top">
+      <div class="container">
+        <ul class="header-top-list">
+          <li>
+            <a href="mailto:info@biverroyaltyhomes.com" class="header-top-link">
+              <ion-icon name="mail-outline"></ion-icon>
+              <span>info@biverroyaltyhomes.com</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="header-top-link">
+              <ion-icon name="location-outline"></ion-icon>
+              <address>No. 31 Wetheral Road, Angelina Plaza Opposite Reem Fuel Station Owerri Imo State.</address>
+            </a>
+          </li>
+        </ul>
+        <div class="wrapper">
+          <ul class="header-top-social-list">
+            <li><a href="#" class="header-top-social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+            <li><a href="#" class="header-top-social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
+            <li><a href="#" class="header-top-social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+            <li><a href="#" class="header-top-social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
+          </ul>
+          <a href="admin-panel.html" class="header-top-btn">Admin</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-bottom">
+      <div class="container">
+        <a href="index.html" class="logo">
+          <img src="./assets/images/BIVER ROYALTY HOMES LTD LOGO_052927 (1).png" alt="Biver Royalty Homes logo" width="70px">
+        </a>
+
+        <nav class="navbar" data-navbar>
+          <div class="navbar-top">
+            <a href="#" class="logo">
+              <img src="./assets/images/BIVER ROYALTY HOMES LTD LOGO_052927 (1).png" alt="Biver Royalty Homes logo">
+            </a>
+            <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+          </div>
+
+          <div class="navbar-bottom">
+            <ul class="navbar-list">
+              <li><a href="index.html" class="navbar-link" data-nav-link>Home</a></li>
+              <li><a href="about.html" class="navbar-link" data-nav-link>About</a></li>
+              <li><a href="service.html" class="navbar-link" data-nav-link>Service</a></li>
+              <li><a href="property.html" class="navbar-link" data-nav-link>Property</a></li>
+              <li><a href="blog.html" class="navbar-link" data-nav-link>Blog</a></li>
+              <li><a href="contact.html" class="navbar-link" data-nav-link>Contact</a></li>
+              <li><a href="login.html" class="navbar-link" data-nav-link>Login</a></li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="header-bottom-actions">
+          <button class="header-bottom-actions-btn" aria-label="Search">
+            <ion-icon name="search-outline"></ion-icon>
+            <span>Search</span>
+          </button>
+          <a href="userDashboard.html" class="header-bottom-actions-btn" aria-label="Profile">
+            <ion-icon name="person-outline"></ion-icon>
+            <span>Profile</span>
+          </a>
+          <a href="addCart.html" class="header-bottom-actions-btn" aria-label="Cart">
+            <ion-icon name="cart-outline"></ion-icon>
+            <span>Cart</span>
+          </a>
+          <button class="header-bottom-actions-btn" data-nav-open-btn aria-label="Open Menu">
+            <ion-icon name="menu-outline"></ion-icon>
+            <span>Menu</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="auth-section">
+      <div class="container">
+        <div class="auth-container">
+          <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="login">Login</button>
+            <button class="auth-tab" data-tab="register">Register</button>
+          </div>
+          
+          <!-- Error Message -->
+          <div class="error-message" id="errorMessage"></div>
+          
+          <!-- User Info (shown after Google login) -->
+          <div class="user-info" id="userInfo">
+            <img src="" alt="User Avatar" class="user-avatar" id="userAvatar">
+            <h3 id="userName">Welcome!</h3>
+            <p id="userEmail"></p>
+            <button class="btn auth-btn continue-btn" onclick="continueToDashboard()">Continue to Dashboard</button>
+          </div>
+
+          <!-- Login Form -->
+          <form class="auth-form active" id="loginForm">
+            <div class="form-group">
+              <label for="loginEmail" class="form-label">Email Address</label>
+              <input type="email" id="loginEmail" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="loginPassword" class="form-label">Password</label>
+              <input type="password" id="loginPassword" class="form-control" required>
+            </div>
+            
+            <div class="form-options">
+              <div class="remember-me">
+                <input type="checkbox" id="rememberMe">
+                <label for="rememberMe">Remember me</label>
+              </div>
+              <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+            
+            <button type="submit" class="btn auth-btn">Login</button>
+            
+            <div class="auth-divider">
+              <span>Or continue with</span>
+            </div>
+            
+            <!-- Google Sign In Button -->
+            <div class="google-auth-container">
+              <div id="g_id_onload"
+                   data-client_id="496287074828-ghbe75qa7j57mgfj13s3q8p7l3qlf8fh.apps.googleusercontent.com"
+                   data-context="signin"
+                   data-ux_mode="popup"
+                   data-callback="handleGoogleSignIn"
+                   data-auto_prompt="false">
+              </div>
+              <div class="g_id_signin"
+                   data-type="standard"
+                   data-shape="rectangular"
+                   data-theme="outline"
+                   data-text="signin_with"
+                   data-size="large"
+                   data-logo_alignment="left">
+              </div>
+            </div>
+          </form>
+          
+          <!-- Register Form -->
+          <form class="auth-form" id="registerForm">
+            <div class="form-group">
+              <label for="registerName" class="form-label">Full Name</label>
+              <input type="text" id="registerName" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="registerEmail" class="form-label">Email Address</label>
+              <input type="email" id="registerEmail" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="registerPhone" class="form-label">Phone Number</label>
+              <input type="tel" id="registerPhone" class="form-control">
+            </div>
+            
+            <div class="form-group">
+              <label for="registerPassword" class="form-label">Password</label>
+              <input type="password" id="registerPassword" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="registerConfirmPassword" class="form-label">Confirm Password</label>
+              <input type="password" id="registerConfirmPassword" class="form-control" required>
+            </div>
+            
+            <div class="form-options">
+              <div class="remember-me">
+                <input type="checkbox" id="agreeTerms" required>
+                <label for="agreeTerms">I agree to the <a href="#">Terms & Conditions</a></label>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn auth-btn">Create Account</button>
+            
+            <div class="auth-divider">
+              <span>Or sign up with</span>
+            </div>
+            
+            <!-- Google Sign Up Button -->
+            <div class="google-auth-container">
+              <div class="g_id_signin"
+                   data-type="standard"
+                   data-shape="rectangular"
+                   data-theme="outline"
+                   data-text="signup_with"
+                   data-size="large"
+                   data-logo_alignment="left">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <!-- Your existing footer code -->
+  </footer>
+
+  <!-- Scripts -->
+  <script src="./assets/js/script.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <script>
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM loaded - initializing auth system');
+      
+      // Initialize tabs
+      const tabs = document.querySelectorAll('.auth-tab');
+      const forms = document.querySelectorAll('.auth-form');
+      
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const target = tab.getAttribute('data-tab');
+          
+          tabs.forEach(t => t.classList.remove('active'));
+          forms.forEach(f => f.classList.remove('active'));
+          
+          tab.classList.add('active');
+          document.getElementById(`${target}Form`).classList.add('active');
+        });
+      });
+
+      // Check login status
+      checkLoginStatus();
+
+      // Form submissions
+      document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+        
+        if (!email || !password) {
+          showError('Please fill in all fields');
+          return;
+        }
+        
+        showError('Regular login is not implemented yet. Please use Google Sign In.');
+      });
+      
+      document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const password = document.getElementById('registerPassword').value;
+        const confirmPassword = document.getElementById('registerConfirmPassword').value;
+        
+        if (password !== confirmPassword) {
+          showError('Passwords do not match');
+          return;
+        }
+        
+        showError('Registration is not implemented yet. Please use Google Sign In.');
+      });
+
+      // Check if Google Identity Services is loaded
+      function checkGoogleLoaded() {
+        if (typeof google !== 'undefined' && google.accounts) {
+          console.log('Google Identity Services loaded successfully');
+          return true;
+        }
+        return false;
+      }
+
+      // Retry Google initialization
+      let retryCount = 0;
+      const maxRetries = 10;
+      
+      function initializeGoogleAuth() {
+        if (checkGoogleLoaded()) {
+          google.accounts.id.initialize({
+            client_id: '496287074828-ghbe75qa7j57mgfj13s3q8p7l3qlf8fh.apps.googleusercontent.com',
+            callback: handleGoogleSignIn,
+            context: 'signin'
+          });
+          console.log('Google Auth initialized');
+        } else if (retryCount < maxRetries) {
+          retryCount++;
+          setTimeout(initializeGoogleAuth, 500);
+        } else {
+          console.error('Failed to load Google Identity Services');
+          showError('Google Sign In is currently unavailable. Please try again later.');
+        }
+      }
+
+      // Start initialization
+      setTimeout(initializeGoogleAuth, 1000);
+    });
+
+    // Handle Google Sign In
+    function handleGoogleSignIn(response) {
+      console.log('Google Sign In Response received');
+      
+      try {
+        const userData = parseJwt(response.credential);
+        
+        if (!userData) {
+          throw new Error('Failed to parse user data');
+        }
+        
+        // Display user info
+        document.getElementById('userName').textContent = `Welcome, ${userData.name}!`;
+        document.getElementById('userEmail').textContent = userData.email;
+        document.getElementById('userAvatar').src = userData.picture;
+        
+        // Hide forms and show user info
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('registerForm').style.display = 'none';
+        document.getElementById('userInfo').style.display = 'block';
+        document.getElementById('errorMessage').style.display = 'none';
+        
+        // Store user data
+        localStorage.setItem('user', JSON.stringify(userData));
+        localStorage.setItem('isLoggedIn', 'true');
+        
+        console.log('User logged in successfully:', userData.name);
+        
+      } catch (error) {
+        console.error('Error during Google sign in:', error);
+        showError('Failed to sign in with Google. Please try again.');
+      }
+    }
+
+    // Parse JWT token
+    function parseJwt(token) {
+      try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        
+        return JSON.parse(jsonPayload);
+      } catch (e) {
+        console.error('Error parsing JWT:', e);
+        return null;
+      }
+    }
+
+    // Show error message
+    function showError(message) {
+      const errorElement = document.getElementById('errorMessage');
+      errorElement.textContent = message;
+      errorElement.style.display = 'block';
+    }
+
+    // Continue to dashboard
+    function continueToDashboard() {
+      window.location.href = 'userDashboard.html';
+    }
+
+    // Check if user is already logged in
+    function checkLoginStatus() {
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      const userData = localStorage.getItem('user');
+      
+      if (isLoggedIn === 'true' && userData) {
+        try {
+          const user = JSON.parse(userData);
+          document.getElementById('userName').textContent = `Welcome back, ${user.name}!`;
+          document.getElementById('userEmail').textContent = user.email;
+          document.getElementById('userAvatar').src = user.picture;
+          
+          document.getElementById('loginForm').style.display = 'none';
+          document.getElementById('registerForm').style.display = 'none';
+          document.getElementById('userInfo').style.display = 'block';
+        } catch (error) {
+          console.error('Error loading user data:', error);
+          localStorage.removeItem('user');
+          localStorage.removeItem('isLoggedIn');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

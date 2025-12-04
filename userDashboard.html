@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Homeverse</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <style>
+    .dashboard {
+      padding: var(--section-padding) 0;
+      /* border: solid 2px red; */
+      padding-top: 0;
+    }
+
+    .dashboard-container {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 30px;
+    }
+
+    .dashboard-sidebar {
+      background: white;
+      border-radius: 8px;
+      box-shadow: var(--shadow-2);
+      padding: 20px 0;
+    }
+
+    .user-profile {
+      text-align: center;
+      padding: 0 20px 20px;
+      border-bottom: 1px solid var(--cultured-1);
+      margin-bottom: 20px;
+    }
+
+    .user-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 15px;
+    }
+
+    .user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .menu-item {
+      margin-bottom: 5px;
+    }
+
+    .menu-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      color: var(--cadet);
+      transition: var(--transition);
+    }
+
+    .menu-link.active,
+    .menu-link:hover {
+      background: var(--cultured-2);
+      color: var(--orange-soda);
+    }
+
+    .dashboard-content {
+      background: white;
+      border-radius: 8px;
+      box-shadow: var(--shadow-2);
+      padding: 30px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: var(--cultured-2);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: var(--fw-700);
+      color: var(--orange-soda);
+      margin-bottom: 5px;
+    }
+
+    .recent-activities {
+      margin-top: 30px;
+    }
+
+    .activity-list {
+      list-style: none;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--cultured-1);
+    }
+
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--cultured-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--orange-soda);
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-container {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-sidebar {
+        order: 2;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header (same as index.html) -->
+   <a href="index.html" style="margin:20px;">
+    <img src="./assets/images/BIVER ROYALTY HOMES LTD LOGO_052927 (1).png" alt="biver" width="70px">
+   </a>
+
+  <main>
+    <section class="dashboard">
+      <div class="container">
+        <div class="dashboard-container">
+          <aside class="dashboard-sidebar">
+            <div class="user-profile">
+              <div class="user-avatar">
+                <img src="./assets/images/author.jpg" alt="User Avatar">
+              </div>
+              <h3 class="h3">John Doe</h3>
+              <p>Premium Member</p>
+            </div>
+
+            <ul class="sidebar-menu">
+              <li class="menu-item">
+                <a href="#" class="menu-link active">
+                  <ion-icon name="grid-outline"></ion-icon>
+                  <span>Dashboard</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="menu-link">
+                  <ion-icon name="heart-outline"></ion-icon>
+                  <span>Saved Properties</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="menu-link">
+                  <ion-icon name="document-text-outline"></ion-icon>
+                  <span>Applications</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="menu-link">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                  <span>Schedule Tours</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="menu-link">
+                  <ion-icon name="settings-outline"></ion-icon>
+                  <span>Settings</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="menu-link">
+                  <ion-icon name="log-out-outline"></ion-icon>
+                  <span>Logout</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="menu-link" onclick="logout()">
+                  <ion-icon name="log-out-outline"></ion-icon>
+                  <span>Logout</span>
+                </a>
+              </li>
+            </ul>
+          </aside>
+
+          <div class="dashboard-content">
+            <h1 class="h1">Welcome back, John!</h1>
+            <p class="section-text">Here's what's happening with your properties today.</p>
+
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-number">5</div>
+                <p>Saved Properties</p>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">2</div>
+                <p>Pending Applications</p>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">1</div>
+                <p>Scheduled Tours</p>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">3</div>
+                <p>Messages</p>
+              </div>
+            </div>
+
+            <div class="recent-activities">
+              <h2 class="h2">Recent Activities</h2>
+              <ul class="activity-list">
+                <li class="activity-item">
+                  <div class="activity-icon">
+                    <ion-icon name="heart-outline"></ion-icon>
+                  </div>
+                  <div>
+                    <p>You saved <strong>Modern Apartments</strong> to your favorites</p>
+                    <small>2 hours ago</small>
+                  </div>
+                </li>
+                <li class="activity-item">
+                  <div class="activity-icon">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                  </div>
+                  <div>
+                    <p>Tour scheduled for <strong>New Apartment Nice View</strong></p>
+                    <small>1 day ago</small>
+                  </div>
+                </li>
+                <li class="activity-item">
+                  <div class="activity-icon">
+                    <ion-icon name="document-text-outline"></ion-icon>
+                  </div>
+                  <div>
+                    <p>Application submitted for <strong>Comfortable Apartment</strong></p>
+                    <small>3 days ago</small>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer (same as index.html) -->
+
+
+  <!-- <script>
+    // Add this to your dashboard.html
+    document.addEventListener('DOMContentLoaded', function () {
+      const userData = localStorage.getItem('user');
+
+      if (userData) {
+        const user = JSON.parse(userData);
+        // Update user info in dashboard
+        document.querySelector('.user-avatar').src = user.picture;
+        document.querySelector('.user-profile h3').textContent = user.name;
+      } else {
+        // Redirect to login if not logged in
+        window.location.href = 'login.html';
+      }
+    });
+
+    // Logout function
+    function logout() {
+      localStorage.removeItem('user');
+      localStorage.removeItem('isLoggedIn');
+      window.location.href = 'login.html';
+    }
+
+  </script> -->
+
+
+</body>
+
+</html>

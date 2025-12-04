@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Property Details - Homeverse</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="index.html">
+  <style>
+    .property-detail {
+      padding: var(--section-padding) 0;
+    }
+    
+    .property-gallery {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+    
+    .main-image {
+      height: 400px;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    
+    .main-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .thumbnail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    
+    .thumbnail {
+      height: 190px;
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .thumbnail:hover img {
+      transform: scale(1.05);
+    }
+    
+    .property-info {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 40px;
+    }
+    
+    .property-meta {
+      background: var(--cultured-2);
+      padding: 30px;
+      border-radius: 8px;
+      height: fit-content;
+    }
+    
+    .price-tag {
+      font-size: 2rem;
+      color: var(--orange-soda);
+      font-weight: var(--fw-700);
+      margin-bottom: 20px;
+    }
+    
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    .whatsapp-btn {
+      background: #25D366;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px;
+      border-radius: 4px;
+      font-weight: var(--fw-600);
+    }
+    
+    .schedule-btn {
+      background: var(--dark-jungle-green);
+      color: white;
+      padding: 15px;
+      border-radius: 4px;
+      font-weight: var(--fw-600);
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    @media (max-width: 768px) {
+      .property-gallery,
+      .property-info {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header (same as index.html) -->
+  
+  <main>
+    <section class="property-detail">
+      <div class="container">
+        <div class="property-gallery">
+          <div class="main-image">
+            <img src="./assets/images/property-1.jpg" alt="Property Main Image" id="mainImage">
+          </div>
+          <div class="thumbnail-grid">
+            <div class="thumbnail" onclick="changeImage('./assets/images/property-1.jpg')">
+              <img src="./assets/images/property-1.jpg" alt="Property Image 1">
+            </div>
+            <div class="thumbnail" onclick="changeImage('./assets/images/property-2.jpg')">
+              <img src="./assets/images/property-2.jpg" alt="Property Image 2">
+            </div>
+            <div class="thumbnail" onclick="changeImage('./assets/images/property-3.jpg')">
+              <img src="./assets/images/property-3.jpg" alt="Property Image 3">
+            </div>
+            <div class="thumbnail" onclick="changeImage('./assets/images/property-4.png')">
+              <img src="./assets/images/property-4.png" alt="Property Image 4">
+            </div>
+          </div>
+        </div>
+        
+        <div class="property-info">
+          <div class="property-content">
+            <div class="card-badge green">For Rent</div>
+            <h1 class="h1">New Apartment Nice View</h1>
+            <p class="card-text">
+              Beautiful Huge 1 Family House In Heart Of Westbury. Newly Renovated With New Wood, 
+              Windows, Roof, Furnace, Hot Water Tank, etc. 3 Bedrooms, 2 Full Baths, 1 Half Bath, 
+              Formal Living And Dining Room, Eat-In Kitchen With Stainless Steel Appliances And Granite Countertops.
+            </p>
+            
+            <div class="features-grid">
+              <div class="feature-item">
+                <ion-icon name="bed-outline"></ion-icon>
+                <span><strong>3</strong> Bedrooms</span>
+              </div>
+              <div class="feature-item">
+                <ion-icon name="man-outline"></ion-icon>
+                <span><strong>2</strong> Bathrooms</span>
+              </div>
+              <div class="feature-item">
+                <ion-icon name="square-outline"></ion-icon>
+                <span><strong>3450</strong> Square Ft</span>
+              </div>
+              <div class="feature-item">
+                <ion-icon name="car-sport-outline"></ion-icon>
+                <span><strong>2</strong> Parking</span>
+              </div>
+              <div class="feature-item">
+                <ion-icon name="calendar-outline"></ion-icon>
+                <span>Year Built: <strong>2020</strong></span>
+              </div>
+            </div>
+            
+            <h2 class="h2">Description</h2>
+            <p class="card-text">
+              This stunning apartment offers breathtaking views of the city skyline. Located in the heart of Belmont Gardens, 
+              this property features modern amenities, high-end finishes, and an open floor plan perfect for entertaining. 
+              The kitchen boasts stainless steel appliances, granite countertops, and custom cabinetry. 
+              The master suite includes a walk-in closet and luxurious bathroom with dual vanities.
+            </p>
+            
+            <h2 class="h2">Location</h2>
+            <div class="map-placeholder" style="height: 300px; background: var(--cultured-2); display: flex; align-items: center; justify-content: center; border-radius: 8px; margin: 20px 0;">
+              <p>Interactive Map Would Appear Here</p>
+            </div>
+          </div>
+          
+          <div class="property-meta">
+            <div class="price-tag">$34,900<small>/Month</small></div>
+            
+            <div class="card-author">
+              <figure class="author-avatar">
+                <img src="./assets/images/author.jpg" alt="William Seklo" class="w-100">
+              </figure>
+              <div>
+                <p class="author-name">
+                  <a href="#">William Seklo</a>
+                </p>
+                <p class="author-title">Estate Agents</p>
+              </div>
+            </div>
+            
+            <ul class="contact-list" style="margin-top: 20px;">
+              <li>
+                <a href="tel:+0123456789" class="contact-link">
+                  <ion-icon name="call-outline"></ion-icon>
+                  <span>+2349033137432</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:william@homeverse.com" class="contact-link">
+                  <ion-icon name="mail-outline"></ion-icon>
+                  <span>william@homeverse.com</span>
+                </a>
+              </li>
+            </ul>
+            
+            <div class="action-buttons">
+              <a href="https://wa.me/2349033137432?text=Hi, I'm interested in the New Apartment Nice View property" class="whatsapp-btn" target="_blank">
+                <ion-icon name="logo-whatsapp"></ion-icon>
+                Contact via WhatsApp
+              </a>
+              <button class="schedule-btn">Schedule a Tour</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Footer (same as index.html) -->
+  
+  <script>
+    function changeImage(src) {
+      document.getElementById('mainImage').src = src;
+    }
+  </script>
+</body>
+</html>

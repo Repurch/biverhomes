@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart - Biver Royalty Homes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f0f2f5;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    /* Header Styles */
+    .header {
+      background: #823105;
+      color: white;
+      padding: 12px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo i {
+      margin-right: 8px;
+      color: #ff9900;
+    }
+
+    .search-bar {
+      display: flex;
+      flex: 1;
+      max-width: 600px;
+      margin: 0 20px;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px 0 0 4px;
+      font-size: 16px;
+    }
+
+    .search-bar button {
+      background: #ff9900;
+      color: white;
+      border: none;
+      padding: 0 15px;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 20px;
+    }
+
+    .header-action {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .header-action i {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .cart-count {
+      background: #ff9900;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      position: absolute;
+      top: -5px;
+      right: -5px;
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 15px;
+      font-size: 14px;
+    }
+
+    .nav-link {
+      color: white;
+      text-decoration: none;
+    }
+
+    /* Main Content */
+    .main {
+      padding: 20px 0;
+    }
+
+    .page-title {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #0f1111;
+    }
+
+    .cart-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .cart-items {
+      flex: 1;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e7e7e7;
+      margin-bottom: 15px;
+    }
+
+    .cart-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .price-column {
+      font-size: 14px;
+      color: #565959;
+    }
+
+    .cart-item {
+      display: flex;
+      padding: 15px 0;
+      border-bottom: 1px solid #e7e7e7;
+    }
+
+    .item-image {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 15px;
+    }
+
+    .item-details {
+      flex: 1;
+    }
+
+    .item-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 5px;
+      color: #0f1111;
+    }
+
+    .item-title a {
+      color: #0f1111;
+      text-decoration: none;
+    }
+
+    .item-title a:hover {
+      color: #c7511f;
+    }
+
+    .in-stock {
+      color: #007600;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      color: #007185;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0;
+    }
+
+    .action-btn:hover {
+      text-decoration: underline;
+      color: #c7511f;
+    }
+
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .quantity-label {
+      margin-right: 8px;
+      font-size: 14px;
+    }
+
+    .quantity-dropdown {
+      padding: 5px;
+      border-radius: 4px;
+      border: 1px solid #d5d9d9;
+      background: #f0f2f5;
+    }
+
+    .item-price {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      min-width: 120px;
+    }
+
+    .current-price {
+      font-size: 18px;
+      font-weight: 600;
+      color: #0f1111;
+    }
+
+    .original-price {
+      font-size: 14px;
+      color: #565959;
+      text-decoration: line-through;
+    }
+
+    .savings {
+      font-size: 14px;
+      color: #c7511f;
+    }
+
+    /* Cart Summary */
+    .cart-summary {
+      width: 300px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      height: fit-content;
+    }
+
+    .summary-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e7e7e7;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #e7e7e7;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: #ffd814;
+      border: none;
+      border-radius: 20px;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .checkout-btn:hover {
+      background: #f7ca00;
+    }
+
+    .secure-checkout {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+      color: #565959;
+    }
+
+    .secure-checkout i {
+      color: #007185;
+      margin-right: 5px;
+    }
+
+    /* Recently Viewed */
+    .recently-viewed {
+      margin-top: 30px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .product-title {
+      font-size: 14px;
+      margin-bottom: 5px;
+      height: 40px;
+      overflow: hidden;
+    }
+
+    .product-price {
+      font-size: 16px;
+      font-weight: 600;
+      color: #0f1111;
+    }
+
+    /* Footer */
+    .footer {
+      background: #823105;
+      color: white;
+      padding: 30px 0;
+      margin-top: 40px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .footer-column {
+      flex: 1;
+      min-width: 200px;
+      margin-bottom: 20px;
+    }
+
+    .footer-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-link {
+      margin-bottom: 8px;
+    }
+
+    .footer-link a {
+      color: #ddd;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .footer-link a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid #3a4553;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #ddd;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .cart-container {
+        flex-direction: column;
+      }
+      
+      .cart-summary {
+        width: 100%;
+      }
+      
+      .header-top {
+        flex-wrap: wrap;
+      }
+      
+      .search-bar {
+        order: 3;
+        margin: 10px 0 0;
+        max-width: 100%;
+      }
+      
+      .cart-item {
+        flex-direction: column;
+      }
+      
+      .item-image {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+      
+      .item-price {
+        align-items: flex-start;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-top">
+        <a href="index.html" class="logo">
+         <img src="./assets/images/BIVER ROYALTY HOMES LTD LOGO_052927 (1).png" alt="biverroyaltyhomes" width="90px">
+        </a>
+        
+        <div class="search-bar">
+          <input type="text" placeholder="Search for properties...">
+          <button><i class="fas fa-search"></i></button>
+        </div>
+        
+        <div class="header-actions">
+          <a href="userDashboard.html" class="header-action">
+            <i class="fas fa-user"></i>
+            <span>Account</span>
+          </a>
+          <a href="#" class="header-action">
+            <i class="fas fa-heart"></i>
+            <span>Wishlist</span>
+          </a>
+          <a href="addCart.html" class="header-action" style="position: relative;">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Cart</span>
+            <div class="cart-count">3</div>
+          </a>
+        </div>
+      </div>
+      
+      <div class="header-nav">
+        <a href="property.html" class="nav-link">All Properties</a>
+        <a href="service.html" class="nav-link">Buy a Home</a>
+        <a href="service.html" class="nav-link">Rent a Home</a>
+        <a href="service.html" class="nav-link">Sell a Home</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="container">
+      <h1 class="page-title">Shopping Cart</h1>
+      
+      <div class="cart-container">
+        <div class="cart-items">
+          <div class="cart-header">
+            <div class="cart-title">3 items in your cart</div>
+            <div class="price-column">Price</div>
+          </div>
+          
+          <!-- Cart Item 1 -->
+          <div class="cart-item">
+            <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Modern Apartment" class="item-image">
+            
+            <div class="item-details">
+              <h2 class="item-title">
+                <a href="detail.html">Modern 3-Bedroom Apartment in Downtown</a>
+              </h2>
+              <div class="in-stock">In Stock</div>
+              
+              <div class="item-actions">
+                <button class="action-btn">Delete</button>
+                <button class="action-btn">Save for later</button>
+                <button class="action-btn">Compare similar</button>
+                <button class="action-btn">Share</button>
+              </div>
+              
+              <div class="quantity-selector">
+                <span class="quantity-label">Qty:</span>
+                <select class="quantity-dropdown">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5+</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="item-price">
+              <div class="current-price">$350,000</div>
+              <div class="original-price">$375,000</div>
+              <div class="savings">You save $25,000</div>
+            </div>
+          </div>
+          
+          <!-- Cart Item 2 -->
+          <div class="cart-item">
+            <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Luxury Villa" class="item-image">
+            
+            <div class="item-details">
+              <h2 class="item-title">
+                <a href="detail.html">Luxury 5-Bedroom Villa with Pool</a>
+              </h2>
+              <div class="in-stock">In Stock</div>
+              
+              <div class="item-actions">
+                <button class="action-btn">Delete</button>
+                <button class="action-btn">Save for later</button>
+                <button class="action-btn">Compare similar</button>
+                <button class="action-btn">Share</button>
+              </div>
+              
+              <div class="quantity-selector">
+                <span class="quantity-label">Qty:</span>
+                <select class="quantity-dropdown">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5+</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="item-price">
+              <div class="current-price">$1,200,000</div>
+              <div class="original-price">$1,350,000</div>
+              <div class="savings">You save $150,000</div>
+            </div>
+          </div>
+          
+          <!-- Cart Item 3 -->
+          <div class="cart-item">
+            <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Family House" class="item-image">
+            
+            <div class="item-details">
+              <h2 class="item-title">
+                <a href="detail.html">Cozy 4-Bedroom Family House</a>
+              </h2>
+              <div class="in-stock">In Stock</div>
+              
+              <div class="item-actions">
+                <button class="action-btn">Delete</button>
+                <button class="action-btn">Save for later</button>
+                <button class="action-btn">Compare similar</button>
+                <button class="action-btn">Share</button>
+              </div>
+              
+              <div class="quantity-selector">
+                <span class="quantity-label">Qty:</span>
+                <select class="quantity-dropdown">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5+</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="item-price">
+              <div class="current-price">$475,000</div>
+              <div class="original-price">$495,000</div>
+              <div class="savings">You save $20,000</div>
+            </div>
+          </div>
+          
+          <div style="text-align: right; margin-top: 15px;">
+            <span style="font-size: 18px;">Subtotal (3 items): <strong>$2,025,000</strong></span>
+          </div>
+        </div>
+        
+        <div class="cart-summary">
+          <div class="summary-title">Order Summary</div>
+          
+          <div class="summary-row">
+            <span>Items (3):</span>
+            <span>$2,025,000</span>
+          </div>
+          
+          <div class="summary-row">
+            <span>Shipping & handling:</span>
+            <span>$0.00</span>
+          </div>
+          
+          <div class="summary-row">
+            <span>Total before tax:</span>
+            <span>$2,025,000</span>
+          </div>
+          
+          <div class="summary-row">
+            <span>Estimated tax:</span>
+            <span>$40,500</span>
+          </div>
+          
+          <div class="summary-total">
+            <span>Order Total:</span>
+            <span>$2,065,500</span>
+          </div>
+          
+          <button class="checkout-btn">Proceed to Checkout</button>
+          
+          <div class="secure-checkout">
+            <i class="fas fa-lock"></i>
+            <span>Secure checkout</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="recently-viewed">
+        <h2 class="section-title">Customers who viewed items in your cart also viewed</h2>
+        
+        <div class="product-grid">
+          <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Modern House" class="product-image">
+            <div class="product-title">Contemporary 3-Bedroom House</div>
+            <div class="product-price">$425,000</div>
+          </div>
+          
+          <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Apartment" class="product-image">
+            <div class="product-title">Luxury 2-Bedroom Apartment</div>
+            <div class="product-price">$285,000</div>
+          </div>
+          
+          <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Townhouse" class="product-image">
+            <div class="product-title">Spacious 4-Bedroom Townhouse</div>
+            <div class="product-price">$550,000</div>
+          </div>
+          
+          <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Penthouse" class="product-image">
+            <div class="product-title">Penthouse with City Views</div>
+            <div class="product-price">$1,150,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <div class="footer-title">Get to Know Us</div>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="about.html">About Biver Homes</a></li>
+            <li class="footer-link"><a href="blog.html">Blog</a></li>
+            <li class="footer-link"><a href="careers.html">Careers</a></li>
+            <li class="footer-link"><a href="investors.html">Investor Relations</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <div class="footer-title">Make Money with Us</div>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="sell.html">Sell properties on Biver</a></li>
+            <li class="footer-link"><a href="advertise.html">Advertise Your Products</a></li>
+            <li class="footer-link"><a href="affiliate.html">Biver Associates</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <div class="footer-title">Biver Payment Products</div>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="payment.html">Biver Business Card</a></li>
+            <li class="footer-link"><a href="payment.html">Shop with Points</a></li>
+            <li class="footer-link"><a href="payment.html">Reload Your Balance</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <div class="footer-title">Let Us Help You</div>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="help.html">Help & Customer Service</a></li>
+            <li class="footer-link"><a href="track.html">Track Your Order</a></li>
+            <li class="footer-link"><a href="returns.html">Returns & Replacements</a></li>
+            <li class="footer-link"><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2023 Biver Royalty Homes. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple cart functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Update cart count
+      const cartCount = document.querySelector('.cart-count');
+      const deleteButtons = document.querySelectorAll('.action-btn');
+      
+      deleteButtons.forEach(button => {
+        if (button.textContent === 'Delete') {
+          button.addEventListener('click', function() {
+            const cartItem = this.closest('.cart-item');
+            cartItem.style.opacity = '0';
+            
+            setTimeout(() => {
+              cartItem.remove();
+              updateCartCount();
+            }, 300);
+          });
+        }
+      });
+      
+      function updateCartCount() {
+        const cartItems = document.querySelectorAll('.cart-item');
+        if (cartCount) {
+          cartCount.textContent = cartItems.length;
+        }
+        
+        // Update cart title
+        const cartTitle = document.querySelector('.cart-title');
+        if (cartTitle) {
+          cartTitle.textContent = `${cartItems.length} items in your cart`;
+        }
+        
+        // Update subtotal
+        const subtotalElement = document.querySelector('.summary-row:first-child span:last-child');
+        if (subtotalElement && cartItems.length > 0) {
+          // In a real app, you would calculate this based on actual prices
+          const newSubtotal = 675000 * cartItems.length;
+          subtotalElement.textContent = `$${newSubtotal.toLocaleString()}`;
+          
+          // Update order total
+          const orderTotal = document.querySelector('.summary-total span:last-child');
+          if (orderTotal) {
+            const tax = newSubtotal * 0.02;
+            orderTotal.textContent = `$${(newSubtotal + tax).toLocaleString()}`;
+          }
+        } else if (subtotalElement && cartItems.length === 0) {
+          subtotalElement.textContent = '$0';
+          const orderTotal = document.querySelector('.summary-total span:last-child');
+          if (orderTotal) {
+            orderTotal.textContent = '$0';
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
